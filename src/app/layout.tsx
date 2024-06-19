@@ -17,10 +17,15 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en">
-            <body className="bg-gray-900">
+            <head>
+                <title>{metadata.title}</title>
+                <meta name="description" content={metadata.description} />
+                <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+            </head>
+            <body>
                 <AuthProvider>
-                    <Navbar />
-                    <main className="flex justify-center items-center p-6 min-h-screen">
+                    {/* <Navbar /> */}
+                    <main>
                         {children}
                     </main>
                 </AuthProvider>

@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    domains: ["lh3.googleusercontent.com", "astroship-pro.web3templates.com", "via.placeholder.com", "images.unsplash.com", "plus.unsplash.com"],
     remotePatterns: [
       {
         protocol: "https",

@@ -1,17 +1,24 @@
 import { options } from "./api/auth/[...nextauth]/options"
 import { getServerSession } from "next-auth/next"
 import UserCard from "./components/UserCard"
+import MainLayout from "./layouts/mainLayout";
+import HomeComponents from "@/app/components/pages/HomePage";
+import { MainContextProvider } from '@/app/context/MainContext'
 
 export default async function Home() {
-    const session = await getServerSession(options)
+    const session = await getServerSession(options);
 
     return (
         <>
-            {session ? (
+            {/* {session ? (
                 <UserCard user={session?.user} pagetype={"Home"} />
-            ) : (
-                <h1 className="text-5xl">Please login!</h1>
-            )}
+            ) : ( */}
+            <MainContextProvider>
+                <MainLayout>
+                    <HomeComponents />
+                </MainLayout>
+            </MainContextProvider>
+            {/* )} */}
         </>
     )
 }
