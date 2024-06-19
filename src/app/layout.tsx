@@ -1,13 +1,18 @@
+"use client";
+
 import './globals.css'
 import { Inter } from 'next/font/google'
 import Navbar from './components/Navbar'
 import AuthProvider from './context/AuthProvider'
+import { usePathname } from 'next/navigation';
+import { SiteContextProvider } from './context/SiteContext';
+import MainLayout from './layouts/mainLayout';
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata = {
-    title: 'NextAuth Tutorial',
-    description: 'Learn NextAuth.js by Dave Gray',
+const metadata = {
+    title: 'MBS | NextAuth.js Project',
+    description: 'NextAuth.js Project by Jeffrey Andony',
 }
 
 export default function RootLayout({
@@ -15,6 +20,20 @@ export default function RootLayout({
 }: {
     children: React.ReactNode
 }) {
+    const pathname = usePathname();
+
+    const renderLayout = () => {
+        if (pathname?.startsWith('/dashboard')) {
+            console.log('Dashboard rendered!');
+        } else {
+            return (
+                <MainLayout>
+                    {children}
+                </MainLayout>
+            )
+        }
+    }
+
     return (
         <html lang="en">
             <head>
@@ -23,12 +42,11 @@ export default function RootLayout({
                 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
             </head>
             <body>
-                <AuthProvider>
-                    {/* <Navbar /> */}
-                    <main>
-                        {children}
-                    </main>
-                </AuthProvider>
+                <SiteContextProvider>
+                    <AuthProvider>
+                        {renderLayout()}
+                    </AuthProvider>
+                </SiteContextProvider>
             </body>
         </html>
     )

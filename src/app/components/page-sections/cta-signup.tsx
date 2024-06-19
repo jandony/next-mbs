@@ -28,7 +28,7 @@ const CTASignUp: React.FC<CTASignUpProps> = ({
             setTitleLoaded(true);
             setSubtitleLoaded(true);
             setBtnLoaded(true);
-        }, 3000)
+        }, 2000)
     });
 
     return (

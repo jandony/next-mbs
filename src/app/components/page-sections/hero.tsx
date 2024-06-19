@@ -42,7 +42,7 @@ const Hero: React.FC<HeroProps> = ({
             setBtn1Loaded(true);
             setBtn2Loaded(true);
             setImageLoaded(true);
-        }, 3000)
+        }, 2000)
     });
 
     return (

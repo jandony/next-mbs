@@ -1,21 +1,23 @@
-import Callout from "@/components/page-sections/callout";
-import CTASignUp from "@/components/page-sections/cta-signup";
-import IconList from "@/components/page-sections/icon-list";
-import ImageText from "@/components/page-sections/image-text";
-import { useRouter } from "next/router"
+"use client";
 
-export default function Services() {
+import { useRouter } from 'next/navigation';
+import Callout from "@/app/components/page-sections/callout";
+import CTASignUp from "@//app/components/page-sections/cta-signup";
+import IconList from "@//app/components/page-sections/icon-list";
+import ImageText from "@//app/components/page-sections/image-text";
+
+export default function ServicesComponents() {
     const router = useRouter();
 
     return (
         <div className="w-full max-w-[1280px] mx-auto py-4">
-            <Callout 
+            <Callout
                 tag={<>Two-Col Feature</>}
                 title={<>Our Services</>}
                 subtitle={<>Unlock your team's true potential with our state-of-the-art SaaS platform. From intelligent task management to real-time collaboration and top-notch data security, we have everything you need to streamline your workflows and achieve high productivity.</>}
             />
 
-            <ImageText 
+            <ImageText
                 tag={<>Simplified Workflows</>}
                 title={<>Create websites with AstroShip</>}
                 subtitle={<>Pro version of popular Astroship starter template made for startups. Built with Astro and Tailwind CSS.</>}
@@ -34,7 +36,7 @@ export default function Services() {
                 ]}
             />
 
-            <IconList 
+            <IconList
                 tag={<>More Features</>}
                 title={<>We've got you covered</>}
                 subtitle={<>Our template covers all things SAAS. If you don't find what you're looking for, contact us and we'll either help you or steer you in the right direction.</>}

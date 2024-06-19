@@ -19,15 +19,15 @@ const Logos: React.FC<LogosProps> = ({
         setTimeout(() => {
             setSubtitleLoaded(true);
             setImageLoaded(true);
-        }, 3000)
+        }, 2000)
     });
 
     return (
         <div className="px-2 py-20 w-full">
             {
                 !subtitleLoaded ?
-                <Skeleton active title={false} paragraph={{ rows: 1, width: 'full' }} className="max-w-[500px] my-4 mx-auto"></Skeleton> :
-                <p className="text-center py-4 dark:text-white/60">Trusted by popular startups you know</p>
+                    <Skeleton active title={false} paragraph={{ rows: 1, width: 'full' }} className="max-w-[500px] my-4 mx-auto"></Skeleton> :
+                    <p className="text-center py-4 dark:text-white/60">Trusted by popular startups you know</p>
             }
 
             <div className="grid md:grid-cols-1 lg:grid-cols-2 grid-cols-4 gap-4">

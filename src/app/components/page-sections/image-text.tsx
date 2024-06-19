@@ -50,7 +50,7 @@ const ImageText: React.FC<ImageTextProps> = ({
             setBtn1Loaded(true);
             setBtn2Loaded(true);
             setImageLoaded(true);
-        }, 3000)
+        }, 2000)
     });
 
     return (
@@ -58,23 +58,23 @@ const ImageText: React.FC<ImageTextProps> = ({
             <div className="w-1/2 md:w-full">
                 {
                     !imageLoaded ?
-                    <Skeleton.Image active className="w-full h-[450px]" /> :
-                    <Image
-                        alt="hero image"
-                        height={540}
-                        width={720}
-                        layout="responsive"
-                        loading="lazy"
-                        className="w-full"
-                        src={image}
-                    />
+                        <Skeleton.Image active className="w-full h-[450px]" /> :
+                        <Image
+                            alt="hero image"
+                            height={540}
+                            width={720}
+                            layout="responsive"
+                            loading="lazy"
+                            className="w-full"
+                            src={image}
+                        />
                 }
             </div>
             <div className="w-1/2 md:w-full flex flex-col justify-center p-4">
                 {
                     !tagLoaded ?
-                    <Skeleton active title={false} paragraph={{ rows: 1, width: 'full' }} className="max-w-[250px] my-4"></Skeleton> :
-                    <p className="text-center text-primary bg-purple-100 border border-primary w-fit my-4 px-4 py-1 rounded-full">{tag}</p>
+                        <Skeleton active title={false} paragraph={{ rows: 1, width: 'full' }} className="max-w-[250px] my-4"></Skeleton> :
+                        <p className="text-center text-primary bg-purple-100 border border-primary w-fit my-4 px-4 py-1 rounded-full">{tag}</p>
                 }
 
                 {

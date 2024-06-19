@@ -3,13 +3,13 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 // Create the context
-const MainContext = createContext<any>({});
+const SiteContext = createContext<any>({});
 
 // Custom hook to use the context
-export const useMainContext = () => useContext(MainContext);
+export const useSiteContext = () => useContext(SiteContext);
 
 // Provider component
-export const MainContextProvider = ({ children }: { children: React.ReactNode }) => {
+export const SiteContextProvider = ({ children }: { children: React.ReactNode }) => {
     const [isDarkMode, setDarkMode] = useState(false);
     // Effect to set initial dark mode state based on user preference or default value
     // useEffect(() => {
@@ -31,8 +31,8 @@ export const MainContextProvider = ({ children }: { children: React.ReactNode })
     }
 
     return (
-        <MainContext.Provider value={contextData}>
+        <SiteContext.Provider value={contextData}>
             {children}
-        </MainContext.Provider>
+        </SiteContext.Provider>
     );
 };

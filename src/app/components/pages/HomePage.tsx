@@ -24,7 +24,7 @@ export default function HomeComponents() {
                 btn1Link="/register"
                 btn1Tab={true}
                 btn2Text="Log In"
-                btn2Link="/login"
+                btn2Link="/signin"
                 btn2Tab={true}
                 image="https://astroship-pro.web3templates.com/_astro/hero-screenshot.HaV5_ts2_ZE0EX9.avif"
             />

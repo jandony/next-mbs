@@ -7,7 +7,7 @@ import { Buttons } from '@/app/components/buttons';
 import Image from 'next/image';
 import { FaSun, FaMoon, FaGithub, FaTwitter, FaInstagram, FaLinkedin, FaHome, FaBookOpen, FaHandshake, FaPhoneAlt } from "react-icons/fa";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { useMainContext } from '@/app/context/MainContext';
+import { useSiteContext } from '@/app/context/SiteContext';
 import { Button, Modal } from 'antd';
 // import { useNextAuth } from '@/app/context/NextAuthContext';
 
@@ -28,7 +28,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     const LogoDark = '/img/logo_dark.svg';
     const LogoWhite = '/img/logo_white.svg';
 
-    const { isDarkMode, toggleDarkMode } = useMainContext();
+    const { isDarkMode, toggleDarkMode } = useSiteContext();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const showModal = () => {

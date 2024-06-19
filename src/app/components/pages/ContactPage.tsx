@@ -1,16 +1,17 @@
+"use client";
+
+import { useRouter } from 'next/navigation';
 import Image from "next/image";
-import { useRouter } from "next/router";
 import { Form, Input, Button } from 'antd';
 import {
     UilUser,
-    UilEnvelope,
-    UilLock
+    UilEnvelope
 } from '@iconscout/react-unicons';
 import TextArea from "antd/es/input/TextArea";
-import { Buttons } from "@/components/buttons";
+import { Buttons } from "@/app/components/buttons";
 import Link from "next/link";
 
-export default function Contact() {
+export default function ContactComponents() {
     const router = useRouter();
 
     return (
@@ -29,7 +30,7 @@ export default function Contact() {
                         src="https://images.unsplash.com/photo-1516387938699-a93567ec168e?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                     />
                 </div>
-                
+
                 {/* Right Column */}
                 <div className="flex flex-col justify-center lg:py-20 p-4 lg:pl-4 pl-40 lg:w-full w-1/2">
                     <h2 className="text-4xl mb-8 dark:text-white">Fill our the form below to get started</h2>
@@ -51,14 +52,14 @@ export default function Contact() {
                             >
                                 <Input prefix={<UilEnvelope />} placeholder="Enter Email" className="h-12 p-3 rounded-6 border-normal dark:border-whiteDark hover:border-primary focus:border-primary dark:placeholder-white/60" />
                             </Form.Item>
-                            
+
                             <Form.Item
                                 className="[&>div>div>div>div>span>span>svg]:w-[16px] [&>div>div>div>div>span>.ant-input-prefix]:mr-[10px] [&>div>div>div>div>span>span>svg]:h-[16px] [&>div>div>div>div>span>span>svg]:text-light-extra [&>div>div>div>div>span>span>span>svg]:text-light-extra"
                                 label="Message"
                             >
                                 <TextArea rows={4} placeholder="Tell me a little bit about your project..." maxLength={6} />
                             </Form.Item>
-                            
+
                             <Link href='#'>
                                 <Buttons
                                     type="primary"
