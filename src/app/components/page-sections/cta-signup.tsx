@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { Skeleton } from 'antd';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Buttons } from '../buttons';
+import { Buttons } from '../antd/buttons';
 
 interface CTASignUpProps {
     title: any;

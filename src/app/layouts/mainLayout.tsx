@@ -1,28 +1,20 @@
 "use client"
 
 import React, { useState } from 'react'
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { Buttons } from '@/app/components/buttons';
+import { Buttons } from '@/app/components/antd/buttons';
 import Image from 'next/image';
 import { FaSun, FaMoon, FaGithub, FaTwitter, FaInstagram, FaLinkedin, FaHome, FaBookOpen, FaHandshake, FaPhoneAlt } from "react-icons/fa";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useSiteContext } from '@/app/context/SiteContext';
 import { Button, Modal } from 'antd';
-// import { useNextAuth } from '@/app/context/NextAuthContext';
-
+import { useSession } from 'next-auth/react';
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
-    // const { currentSession, user } = useNextAuth();
-    // const session = await getServerSession(options);
-
-    // console.log("Session...")
-    // console.log(currentSession);
-
-    // console.log("User...");
-    // console.log(user);
-
-    const router = useRouter();
+    const { data: session } = useSession({
+        required: false
+    })
     const pathname = usePathname();
 
     const LogoDark = '/img/logo_dark.svg';
@@ -41,8 +33,21 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
     return (
         <div className="flex flex-col min-h-screen">
+            {
+                session && (
+                    <div className="w-full border-b">
+                        <div className="flex items-center justify-end gap-4 w-full max-w-[1280px] mx-auto text-sm py-2 text-right">
+                            <p className="dark:text-white/60">Hello, {session?.user?.name}!</p>
+                            <Link href='/signout' className="hover:underline dark:text-white/60 dark:hover:text-white">
+                                [ sign out ]
+                            </Link>
+                        </div>
+                    </div>
+                )
+            }
+
             {/* Nav Menu */}
-            <div className="border-b py-4 bg-white sticky top-0 z-10 shadow-md dark:bg-[#010413]">
+            <div className="border-b py-4 bg-white sticky top-0 z-10 shadow-md dark:bg-slate-800">
                 <div className="flex justify-between items-center w-full max-w-[1280px] mx-auto pl-6">
                     <Link href='/'>
                         <Image alt="Logo" loading="lazy" width={120} height={20} className="w-full max-w-[120px] xs:max-w-[100px]" src={`${isDarkMode ? LogoWhite : LogoDark}`} />
@@ -66,7 +71,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                             <Buttons
                                 onClick={toggleDarkMode}
                                 type="ghost"
-                                className="bg-slate-100 text-gray-600 hover:text-yellow-600 rounded-full p-3 h-auto border border-gray-300 hover:-rotate-90 dark:bg-slate-900 dark:border-slate-600 dark:text-slate-400 dark:hover:text-yellow-600">
+                                className="bg-slate-100 text-gray-600 hover:text-yellow-600 rounded-full p-3 h-auto border border-gray-300 hover:-rotate-90 transition-all duration dark:bg-slate-900 dark:border-slate-600 dark:text-slate-400 dark:hover:text-yellow-600">
                                 {isDarkMode ? <FaSun className='text-lg' /> : <FaMoon className="text-lg" />}
                             </Buttons>
                             <Buttons
@@ -112,6 +117,9 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                                     size="large"
                                     className="bg-primary text-white h-11 w-full my-4">Get Started</Buttons>
                             </Link>
+                            <Link href='/signout' className="py-8 block text-center border-t dark:text-white/60 dark:hover:text-white">
+                                Sign Out
+                            </Link>
                         </div>
                     </Modal>
                 </div>
@@ -121,7 +129,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             {children}
 
             {/* Footer */}
-            <div className="border-t mt-auto shadow-2xl">
+            <div className="border-t mt-auto shadow-2xl dark:bg-slate-800">
                 <div className="md:flex-col flex w-full max-w-[1280px] mx-auto pt-10 pb-20 px-2">
                     <div className="md:w-full w-1/3 p-4" >
                         <Link href='/'>
@@ -133,31 +141,25 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                         <div className="flex flex-col gap-4">
                             <p className="font-semibold text-lg dark:text-white">Company</p>
                             <div className="flex flex-col gap-4 dark:text-white/60">
-                                <Link href="#">About</Link>
-                                <Link href="#">Customers</Link>
-                                <Link href="#">Enterprise</Link>
-                                <Link href="#">Partners</Link>
-                                <Link href="#">Jobs</Link>
+                                <Link href="/">Home</Link>
+                                <Link href="/about">About</Link>
+                                <Link href="/services">Services</Link>
+                                <Link href="/contact">Contact</Link>
                             </div>
                         </div>
                         <div className="flex flex-col gap-4">
                             <p className="font-semibold text-lg dark:text-white">Products</p>
                             <div className="flex flex-col gap-4 dark:text-white/60">
-                                <Link href="#">About</Link>
-                                <Link href="#">Customers</Link>
-                                <Link href="#">Enterprise</Link>
-                                <Link href="#">Partners</Link>
-                                <Link href="#">Jobs</Link>
+                                <Link href="/client">Client</Link>
+                                <Link href="/server">Server</Link>
+                                <Link href="/extra">Extra</Link>
                             </div>
                         </div>
                         <div className="flex flex-col gap-4">
                             <p className="font-semibold text-lg dark:text-white">Resources</p>
                             <div className="flex flex-col gap-4 dark:text-white/60">
-                                <Link href="#">About</Link>
-                                <Link href="#">Customers</Link>
-                                <Link href="#">Enterprise</Link>
-                                <Link href="#">Partners</Link>
-                                <Link href="#">Jobs</Link>
+                                <Link href="/dashboard">Dashboard</Link>
+                                <Link href={session ? '/signout' : 'signin'}>{session ? 'Logout' : 'Login'}</Link>
                             </div>
                         </div>
                     </div>

@@ -14,10 +14,10 @@ type Props = {
 
 export default function Card({ user, pagetype }: Props) {
 
-    console.log(user)
+    console.log(user);
 
     const greeting = user?.name ? (
-        <div className="flex flex-col items-center p-6 bg-white rounded-lg font-bold text-5xl text-black">
+        <div className="flex flex-col items-center rounded-lg font-bold text-5xl dark:text-white">
             Hello {user?.name ? user?.name : user?.username}!
         </div>
     ) : null
@@ -30,7 +30,7 @@ export default function Card({ user, pagetype }: Props) {
 
     const userImage = user ? (
         <Image
-            className="border-4 border-black dark:border-slate-500 drop-shadow-xl shadow-black rounded-full mx-auto mt-8"
+            className="border-4 border-black dark:border-slate-500 drop-shadow-xl shadow-black rounded-full mx-auto"
             src={user?.image || 'https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg'}
             width={200}
             height={200}
@@ -40,11 +40,11 @@ export default function Card({ user, pagetype }: Props) {
     ) : null
 
     return (
-        <section className="flex flex-col gap-4">
+        <section className="flex flex-col items-center gap-4 my-[50px]">
             {greeting}
             {/* {emailDisplay} */}
             {userImage}
-            <p className="text-2xl text-center">{pagetype} Page!</p>
+            <p className="text-2xl text-center dark:text-white/60">{pagetype} Page!</p>
         </section>
     )
 }

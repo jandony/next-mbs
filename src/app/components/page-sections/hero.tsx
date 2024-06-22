@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Skeleton } from 'antd';
-import { Buttons } from '../buttons';
+import { Buttons } from '../antd/buttons';
 import { useEffect, useState } from 'react';
 
 interface HeroProps {

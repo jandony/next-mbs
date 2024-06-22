@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Skeleton } from 'antd';
-import { Buttons } from '../buttons';
+import { Buttons } from '../antd/buttons';
 import { IoIosCheckmarkCircle } from "react-icons/io";
 
 

@@ -1,6 +1,7 @@
 "use client"
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useSession } from 'next-auth/react'
 
 // Create the context
 const SiteContext = createContext<any>({});
@@ -10,24 +11,36 @@ export const useSiteContext = () => useContext(SiteContext);
 
 // Provider component
 export const SiteContextProvider = ({ children }: { children: React.ReactNode }) => {
-    const [isDarkMode, setDarkMode] = useState(false);
-    // Effect to set initial dark mode state based on user preference or default value
-    // useEffect(() => {
-    //     const darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    //     setDarkMode(darkMode);
-    // }, []);
+    const darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const [isDarkMode, setDarkMode] = useState(darkMode);
+
+    useEffect(() => {
+        const bodyDocument = document.body;
+        if (isDarkMode) {
+            bodyDocument.classList.add('dark');
+        } else {
+            bodyDocument.classList.remove('dark');
+        }
+        localStorage.setItem("dark-mode-preference", JSON.stringify(isDarkMode));
+    }, []);
 
     // Function to toggle dark mode
     const toggleDarkMode = () => {
-        const bodyDocument = document.body;
-        bodyDocument.classList.toggle('dark');
-        setDarkMode(prevMode => !prevMode);
+        setDarkMode(prevMode => {
+            const newMode = !prevMode;
+            if (typeof window !== 'undefined') {
+                localStorage.setItem("dark-mode-preference", newMode.toString());
+            }
+            document.body.classList.toggle('dark', newMode);
+            return newMode;
+        });
     };
 
     // Collect all global variables & functions 
     const contextData = {
         isDarkMode,
-        toggleDarkMode
+        toggleDarkMode,
+        // session
     }
 
     return (

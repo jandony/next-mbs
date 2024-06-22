@@ -2,11 +2,13 @@
 
 import './globals.css'
 import { Inter } from 'next/font/google'
-import Navbar from './components/Navbar'
 import AuthProvider from './context/AuthProvider'
 import { usePathname } from 'next/navigation';
 import { SiteContextProvider } from './context/SiteContext';
 import MainLayout from './layouts/mainLayout';
+import DashboardLayout from './layouts/dashboardLayout';
+import { DashboardContextProvider } from './context/DashboardProvider';
+import ProfileLayout from './layouts/profileLayout';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -24,7 +26,17 @@ export default function RootLayout({
 
     const renderLayout = () => {
         if (pathname?.startsWith('/dashboard')) {
-            console.log('Dashboard rendered!');
+            return (
+                <DashboardContextProvider>
+                    <DashboardLayout>
+                        {pathname?.startsWith('/dashboard/profile') ? (
+                            <ProfileLayout>{children}</ProfileLayout>
+                        ) : (
+                            children
+                        )}
+                    </DashboardLayout>
+                </DashboardContextProvider>
+            )
         } else {
             return (
                 <MainLayout>
@@ -42,11 +54,11 @@ export default function RootLayout({
                 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
             </head>
             <body>
-                <SiteContextProvider>
-                    <AuthProvider>
+                <AuthProvider>
+                    <SiteContextProvider>
                         {renderLayout()}
-                    </AuthProvider>
-                </SiteContextProvider>
+                    </SiteContextProvider>
+                </AuthProvider>
             </body>
         </html>
     )

@@ -8,7 +8,7 @@ import {
     UilEnvelope
 } from '@iconscout/react-unicons';
 import TextArea from "antd/es/input/TextArea";
-import { Buttons } from "@/app/components/buttons";
+import { Buttons } from "@/app/components/antd/buttons";
 import Link from "next/link";
 
 export default function ContactComponents() {

@@ -1,7 +1,7 @@
 import GitHubProvider from 'next-auth/providers/github'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import connectToDatabase from '../../../../../lib/mongoose';
-import Customer from '../../../../../models/Customer';
+import connectToDatabase from '@/../lib/mongoose';
+import Customer from '@/../models/Customer';
 import bcrypt from 'bcryptjs'  // To hash passwords
 
 export const options = {
@@ -41,7 +41,7 @@ export const options = {
             
                 if (user && await bcrypt.compare(credentials.password, user.password)) {
                     console.log('Password match');
-                    return { id: user._id, name: user.name, email: user.email, username: user.username, password: user.password };
+                    return { id: user._id, name: user.name, email: user.email, username: user.username, password: user.password, data: user };
                 }
             
                 console.log('Invalid credentials');
@@ -57,12 +57,17 @@ export const options = {
         jwt: true,
     },
     callbacks: {
+        // async signIn(user, account, profile) {
+        //     // Redirect to dashboard after sign-in
+        //     return 'http://localhost:3000/dashboard';
+        // },
         async jwt({ token, user }) {
             if (user) {
                 token.id = user.id;
                 token.name = user.name;
                 token.username = user.username;
                 token.email = user.email;
+                token.data = user.data;
                 }
             // console.log('JWT callback - token:', token, 'user:', user);
             return token;
@@ -72,6 +77,7 @@ export const options = {
                 session.user.name = token.name;
                 session.user.username = token.username;
                 session.user.email = token.email;
+                session.user.data = token.data;
                 // console.log('Session callback - session:', session, 'token:', token);
             return session;
         },

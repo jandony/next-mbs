@@ -1,6 +1,5 @@
 "use client"
 
-import { Buttons } from "@/app/components/buttons";
 import Callout from "@/app/components/page-sections/callout";
 import CTASignUp from "@/app/components/page-sections/cta-signup";
 import Hero from "@/app/components/page-sections/hero";
@@ -8,11 +7,8 @@ import IconList from "@/app/components/page-sections/icon-list";
 import ImageText from "@/app/components/page-sections/image-text";
 import Logos from "@/app/components/page-sections/logos";
 import ServiceCards from "@/app/components/page-sections/service-cards";
-import Link from "next/link";
-import { useRouter } from 'next/navigation';
 
 export default function HomeComponents() {
-    const router = useRouter();
 
     return (
         <div className="w-full max-w-[1280px] mx-auto py-4">
@@ -25,7 +21,7 @@ export default function HomeComponents() {
                 btn1Tab={true}
                 btn2Text="Log In"
                 btn2Link="/signin"
-                btn2Tab={true}
+                btn2Tab={false}
                 image="https://astroship-pro.web3templates.com/_astro/hero-screenshot.HaV5_ts2_ZE0EX9.avif"
             />
 
