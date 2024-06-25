@@ -11,7 +11,8 @@ export const useSiteContext = () => useContext(SiteContext);
 
 // Provider component
 export const SiteContextProvider = ({ children }: { children: React.ReactNode }) => {
-    const darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const storedDarkMode = localStorage.getItem("dark-mode-preference");
+    const darkMode = storedDarkMode ? JSON.parse(storedDarkMode) : window.matchMedia('(prefers-color-scheme: dark)').matches;
     const [isDarkMode, setDarkMode] = useState(darkMode);
 
     useEffect(() => {

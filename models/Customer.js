@@ -92,12 +92,15 @@ const CustomerSchema = new mongoose.Schema(
     socialProfiles: {
       facebook: {
         type: String,
+        default: "",
       },
       instagram: {
         type: String,
+        default: "",
       },
       linkedin: {
         type: String,
+        default: "",
       },
     },
   },

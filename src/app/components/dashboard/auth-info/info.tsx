@@ -58,7 +58,7 @@ const AuthInfo = (props: any) => {
                 <figure className="flex items-center text-sm rounded-[8px] bg-section dark:bg-white/10 py-[20px] px-[25px] mb-[12px]">
                     <Image
                         className="h-[50px] w-[50px] object-cover rounded-full mr-4 shadow-md"
-                        src={session?.user?.data?.profileImage}
+                        src={session?.user?.data?.profileImage || session?.user?.image}
                         alt=""
                         width="50"
                         height="50"
@@ -244,7 +244,7 @@ const AuthInfo = (props: any) => {
                         className="flex items-center overflow-x-auto text-light whitespace-nowrap"
                     >
                         <Image
-                            src={session?.user?.data?.profileImage}
+                            src={session?.user?.data?.profileImage || session?.user?.image}
                             alt="Avatar"
                             width="32"
                             height="32"

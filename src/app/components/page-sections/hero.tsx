@@ -46,7 +46,7 @@ const Hero: React.FC<HeroProps> = ({
     });
 
     return (
-        <div className="flex md:flex-col-reverse justify-between px-2 py-10 w-full">
+        <div className="flex px-2 md:flex-col-reverse py-10 justify-between w-full">
             <div className="w-1/2 md:w-full flex flex-col justify-center p-4 gap-4">
 
                 {

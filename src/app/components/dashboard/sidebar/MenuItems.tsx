@@ -8,7 +8,7 @@ import {
     UilSetting,
     UilEllipsisV,
 } from '@iconscout/react-unicons';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Menu } from 'antd';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 
 function MenuItems() {
     const topMenu = false;
-    const path = '/admin';
+    const path = '/dashboard';
     const { t } = useTranslation();
 
     interface RootState {

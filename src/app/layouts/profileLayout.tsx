@@ -3,7 +3,7 @@
 import { NextPage } from 'next'
 import Link from 'next/link';
 import dynamic from 'next/dynamic'
-import { redirect } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { PageHeaders } from '@/app/components/antd/page-headers/';
 import { Row, Col, Skeleton } from 'antd';
@@ -38,6 +38,8 @@ const ProfileLayout = ({ children }: { children: React.ReactNode }) => {
         }
     })
 
+    const pathname = usePathname();
+
     const vh = Number(window.innerHeight);
     const newHeight = vh - 75;
 
@@ -51,6 +53,21 @@ const ProfileLayout = ({ children }: { children: React.ReactNode }) => {
             breadcrumbName: 'Profile',
         },
     ];
+
+    const PageLinks = [
+        {
+            title: 'Overview',
+            link: "/dashboard/profile"
+        },
+        {
+            title: 'Timeline',
+            link: "/dashboard/profile/timeline"
+        },
+        {
+            title: 'Activity',
+            link: "/dashboard/profile/activity"
+        }
+    ]
 
     return (
         <div style={{ minHeight: `${newHeight}px` }} className="p-4">
@@ -72,30 +89,19 @@ const ProfileLayout = ({ children }: { children: React.ReactNode }) => {
                             <CoverSection />
                             <nav className="px-[25px]">
                                 <ul className="m-0 flex items-center gap-[22px]">
-                                    <li>
-                                        <Link
-                                            className="relative block py-[20px] px-[5px] text-light dark:text-white/60 [&.active]:text-primary after:[&.active]:bg-primary after:absolute after:bottom-0 ltr:after:left-0 rtl:after:right-0 after:w-full after:h-[2px] after:bg-transparent after:transition-all after:duration-300 after:ease-in-out after:invisible [&.active]:after:visible font-medium"
-                                            href="/dashboard/profile"
-                                        >
-                                            Overview
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link
-                                            className="relative block py-[20px] px-[5px] text-light dark:text-white/60 [&.active]:text-primary after:[&.active]:bg-primary after:absolute after:bottom-0 ltr:after:left-0 rtl:after:right-0 after:w-full after:h-[2px] after:bg-transparent after:transition-all after:duration-300 after:ease-in-out after:invisible [&.active]:after:visible font-medium"
-                                            href="/dashboard/profile/timeline"
-                                        >
-                                            Timeline
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link
-                                            className="relative block py-[20px] px-[5px] text-light dark:text-white/60 [&.active]:text-primary after:[&.active]:bg-primary after:absolute after:bottom-0 ltr:after:left-0 rtl:after:right-0 after:w-full after:h-[2px] after:bg-transparent after:transition-all after:duration-300 after:ease-in-out after:invisible [&.active]:after:visible font-medium"
-                                            href="/dashboard/profile/activity"
-                                        >
-                                            Activity
-                                        </Link>
-                                    </li>
+                                    {
+                                        PageLinks.map((page, i) => (
+                                            <li key={i}>
+                                                <Link
+                                                    className={`relative block py-[20px] px-[5px] font-medium border-b-2 border-black/0 hover:border-primary ${pathname === page.link ? 'text-primary dark:text-primary border-primary' : 'text-light dark:text-white/60'}`}
+                                                    href={page.link}
+                                                >
+                                                    {page.title}
+                                                </Link>
+                                            </li>
+                                        ))
+                                    }
+
                                 </ul>
                             </nav>
                         </div>

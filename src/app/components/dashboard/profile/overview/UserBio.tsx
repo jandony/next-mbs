@@ -1,3 +1,5 @@
+"use client";
+
 import {
     UilPhone,
     UilGlobe,
@@ -6,16 +8,32 @@ import {
 import FontAwesome from 'react-fontawesome';
 import { Buttons } from '@/app/components/antd/buttons';
 import socialMediaLinks from '@/app/demoData/socialMediaLinks.json';
+import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
 
-function UserBio() {
+const UserBio = () => {
+    const { data: session } = useSession({
+        required: true,
+        onUnauthenticated() {
+            redirect('/api/auth/signin?callbackUrl=/client')
+        }
+    })
+
+    // console.log(session)
+
     return (
         <>
             <div className="p-[25px] bg-white dark:bg-white/10 rounded-10 mb-[25px]">
+                <div className="mb-[22px] pb-[22px] border-regular border-b-1 dark:border-white/10">
+                    <h5 className="text-[12px] text-light dark:text-white/60 uppercase mb-[16px] font-medium">Registered with:</h5>
+                    <p className="mb-0 text-[15px] leading-[1.667] text-theme-gray dark:text-white/60">
+                        credentials
+                    </p>
+                </div>
                 <article className="mb-[22px] pb-[22px] border-regular border-b-1 dark:border-white/10">
                     <h5 className="text-[12px] text-light dark:text-white/60 uppercase mb-[16px] font-medium">User Bio</h5>
                     <p className="mb-0 text-[15px] leading-[1.667] text-theme-gray dark:text-white/60">
-                        Nam malesuada dolor tellus pretium amet was hendrerit facilisi id vitae enim sed ornare there suspendisse
-                        sed orci neque ac sed aliquet risus faucibus in pretium molestie nisl tempor quis odio habitant.
+                        {session?.user?.data?.bio}
                     </p>
                 </article>
                 <address className="mb-[22px] pb-[22px] border-regular border-b-1 dark:border-white/10">
@@ -23,10 +41,10 @@ function UserBio() {
                     <ul className="mb-0 user-info__contact">
                         <li className="flex items-center mb-[14px] last:mb-0 gap-[12px] text-theme-gray dark:text-white/60 text-[14px] not-italic">
                             <UilEnvelope className="w-[16px] h-[16px] text-light dark:text-white/60" />{' '}
-                            <span>Clayton@example.com</span>
+                            <span>{session?.user?.data?.email}</span>
                         </li>
                         <li className="flex items-center mb-[14px] last:mb-0 gap-[12px] text-theme-gray dark:text-white/60 text-[14px] not-italic">
-                            <UilPhone className="w-[16px] h-[16px] text-light dark:text-white/60" /> <span>+44 (0161) 347 8854</span>
+                            <UilPhone className="w-[16px] h-[16px] text-light dark:text-white/60" /> <span>{session?.user?.data?.phone}</span>
                         </li>
                         <li className="flex items-center mb-[14px] last:mb-0 gap-[12px] text-theme-gray dark:text-white/60 text-[14px] not-italic">
                             <UilGlobe className="w-[16px] h-[16px] text-light dark:text-white/60" /> <span>www.example.com</span>
@@ -36,20 +54,15 @@ function UserBio() {
                 <div className="mb-[22px] pb-[22px] border-regular  border-b-1 dark:border-white/10">
                     <h5 className="text-[12px] text-light dark:text-white/60 uppercase mb-[16px] font-medium">Skills</h5>
                     <div className="flex items-center flex-wrap gap-[6px]">
-                        <Buttons className="text-[11px] leading-[25px] font-medium flex items-center justify-center text-theme-gray dark:text-white/60 btn-outlined h-[25px] dark:bg-white/10 border-regular dark:border-white/10 px-[8.75px] uppercase rounded-[5px]">
-                            UI/UX
-                        </Buttons>
-                        <Buttons className="text-[11px] leading-[25px] font-medium flex items-center justify-center text-theme-gray dark:text-white/60 btn-outlined h-[25px] dark:bg-white/10 border-regular dark:border-white/10 px-[8.75px] uppercase rounded-[5px]">
-                            Branding
-                        </Buttons>
-                        <Buttons className="text-[11px] leading-[25px] font-medium flex items-center justify-center text-theme-gray dark:text-white/60 btn-outlined h-[25px] dark:bg-white/10 border-regular dark:border-white/10 px-[8.75px] uppercase rounded-[5px]">
-                            product design
-                        </Buttons>
-                        <Buttons className="text-[11px] leading-[25px] font-medium flex items-center justify-center text-theme-gray dark:text-white/60 btn-outlined h-[25px] dark:bg-white/10 border-regular dark:border-white/10 px-[8.75px] uppercase rounded-[5px]">
-                            web design
-                        </Buttons>
-                        <Buttons className="text-[11px] leading-[25px] font-medium flex items-center justify-center text-theme-gray dark:text-white/60 btn-outlined h-[25px] dark:bg-white/10 border-regular dark:border-white/10 px-[8.75px] uppercase rounded-[5px]">
-                            Application
+                        {
+                            session?.user?.data?.skills.map((skill, i) => (
+                                <Buttons key={i} className="text-[11px] leading-[25px] font-medium flex items-center justify-center text-white bg-primary h-[25px] border-regular dark:border-white/10 px-[8.75px] uppercase rounded-[5px]">
+                                    {skill}
+                                </Buttons>
+                            ))
+                        }
+                        <Buttons className="text-[11px] leading-[25px] font-medium flex items-center justify-center text-white bg-primary/70 hover:bg-primary dark:hover:bg-primary dark:bg-primary/60 h-[25px] border-regular dark:border-white/10 px-[8.75px] uppercase rounded-[5px]">
+                            + Add Skill
                         </Buttons>
                     </div>
                 </div>

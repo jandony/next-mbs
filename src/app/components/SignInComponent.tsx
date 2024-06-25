@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { signIn } from "next-auth/react"
 // import { Buttons } from '@/app/components/buttons'
-import { FaMoon, FaSun } from 'react-icons/fa'
+import { FaGithub, FaGoogle, FaMoon, FaSun } from 'react-icons/fa'
 
 export default function SignInComponent({ csrfToken }: { csrfToken: string }) {
     const darkModePreference = typeof window !== 'undefined' ? localStorage.getItem("dark-mode-preference") : null;
@@ -128,8 +128,15 @@ export default function SignInComponent({ csrfToken }: { csrfToken: string }) {
                             <p className="text-white/60 text-sm font-medium py-3 text-center">OR</p>
 
                             <div className="text-center">
+                                <div key="Google">
+                                    <button className="w-full flex justify-center items-center gap-2 py-2 px-4 mb-4 border border-transparent rounded-full shadow-sm text-sm font-medium text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500" onClick={() => signIn('google')}>
+                                        <FaGoogle />
+                                        Sign in with Google
+                                    </button>
+                                </div>
                                 <div key="Github">
-                                    <button className="w-full flex justify-center py-2 px-4 mb-4 border border-transparent rounded-full shadow-sm text-sm font-medium text-white bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500" onClick={() => signIn('github')}>
+                                    <button className="w-full flex justify-center items-center gap-2 py-2 px-4 mb-4 border border-transparent rounded-full shadow-sm text-sm font-medium text-white bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500" onClick={() => signIn('github')}>
+                                        <FaGithub />
                                         Sign in with GitHub
                                     </button>
                                 </div>

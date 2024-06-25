@@ -1,4 +1,5 @@
 import GitHubProvider from 'next-auth/providers/github'
+import GoogleProvider from 'next-auth/providers/google'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import connectToDatabase from '@/../lib/mongoose';
 import Customer from '@/../models/Customer';
@@ -11,6 +12,10 @@ export const options = {
             clientSecret: process.env.GITHUB_SECRET as string,
             // GitHib Callback URL
             // http://localhost:3000/api/auth/callback/github
+        }),
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET
         }),
         CredentialsProvider({
             name: "Credentials",

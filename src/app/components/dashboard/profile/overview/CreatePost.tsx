@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { Input } from 'antd';
-import { useSelector, useDispatch } from 'react-redux';
 import { UilEllipsisH } from '@iconscout/react-unicons';
-import { Buttons } from '@/components/buttons';
-import { submitPost } from '@/redux/profile/actionCreator';
+import { Buttons } from '@/app/components/antd/buttons';
 
 interface Post {
     postId: number;
@@ -21,13 +19,6 @@ function Post() {
         image: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     }
 
-    const dispatch = useDispatch();
-    const { posts } = useSelector((state: any) => {
-        return {
-            posts: state.Profile.posts,
-        };
-    });
-
     const [drawer, setDrawer] = useState(false);
     const [textValue, setTextValue] = useState('');
 
@@ -35,27 +26,6 @@ function Post() {
         const arrayData: number[] = posts.map((data: Post) => data.postId);
         const max = Math.max(...arrayData);
 
-        if (textValue === '') {
-            alert('Please input minumum content');
-        } else {
-            dispatch(
-                //@ts-ignore
-                submitPost([
-                    ...posts,
-                    {
-                        postId: max + 1,
-                        from: 'David Warner',
-                        time: new Date().getTime(),
-                        img: ['/img/profile/post/postImage.png'],
-                        author: '/img/chat-author/t4.jpg',
-                        content: textValue,
-                        like: 0,
-                        comment: [],
-                    },
-                ]),
-            );
-            setTextValue('');
-        }
         setTimeout(() => {
             setDrawer(false);
         }, 500);
